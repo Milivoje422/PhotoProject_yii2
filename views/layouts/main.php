@@ -139,15 +139,7 @@ NavBar::end();
 <div class="container" id="page">
    <div id="mainmenu">
 
-	   <?php
-
-	   echo Yii::$app->basePath;
-	   echo "</br>";
-//	   echo Yii::$app->request->BaseUrl;
-
-	   ?>
-
-        <?php  echo  $content ?>
+        <?= $content ?>
 
         <div class="clear"></div>
         <div id="footer"></div>

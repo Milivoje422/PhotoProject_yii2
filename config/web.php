@@ -19,6 +19,9 @@ $config = [
 	        'enableFlashMessages' => false
 
         ],
+	    'actionlog' => [
+		    'class' => 'cakebake\actionlog\Module',
+		],
     ],
 
     /* Components */
