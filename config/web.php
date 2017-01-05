@@ -13,15 +13,16 @@ $config = [
             'enableAccountDelete' => true,
             'enableUnconfirmedLogin' => true,
             'admins' => ['milivojeivic12'],
-	        'emailChangeStrategy' => '\dektrium\user\Module::STRATEGY_INSECURE',
-	        'enableUnconfirmedLogin' => true,
-	        'enableConfirmation' => false,
-	        'enableFlashMessages' => false
+//	        'emailChangeStrategy' => '\dektrium\user\Module::STRATEGY_INSECURE',
+//	        'enableUnconfirmedLogin' => true,
+//	        'enableConfirmation' => false,
+//	        'enableFlashMessages' => false
 
         ],
 	    'actionlog' => [
 		    'class' => 'cakebake\actionlog\Module',
 		],
+	    'rbac' => 'dektrium\rbac\RbacWebModule',
     ],
 
     /* Components */

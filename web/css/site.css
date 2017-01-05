@@ -113,3 +113,42 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.navbar-toggle, .icon-bar {
+    border:1px solid #1b96ff  !important;
+}
+
+.language-info
+{
+    position: relative;
+}
+.dropdown_selection_languages
+{
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    z-index: 999;
+    background: rgb(252, 254, 255);
+    margin-right: 10px;
+
+}
+.dropdown_selection_languages ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.dropdown_selection_languages ul li
+{
+    padding: 5px 11px;
+    border: 1px rgba(27, 150, 255, 0.39) solid;
+    transition: all 0.5s;
+}
+.dropdown_selection_languages ul li:hover
+{
+    background: #097ec5;
+    color: white;
+}

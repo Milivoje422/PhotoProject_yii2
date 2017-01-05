@@ -45,6 +45,15 @@ AppAsset::register($this);
 				break;
 		}
 		?>
+		<div class="dropdown_selection_languages">
+			<ul>
+				<?php
+					foreach(Yii::$app->params['languages'] as $key => $language) {
+						echo '<li id="'.$key.'">'. $language['language'] .'</li>';
+					}
+				?>
+			</ul>
+		</div>
 	</div>
 	<div class="container" style="float:none; margin:auto;">
 		<div class="row">
@@ -54,7 +63,9 @@ AppAsset::register($this);
 					<img src="<?= Yii::$app->request->BaseUrl; ?>/bootstrap/img/logo-public-small.png" style="width:100%;" class="logo-icon-small"/>
 				</div>
 				<div class="options-main" style="width:35%; float:left; margin-top:15px;">
-					<a href="../user/security/login" style="float: right; margin-left:15px;" class="btn btn-primary btn-small"><i class="icon-white icon-user"></i>Prijava</a>
+					<?php if (Yii::$app->user->isGuest) {
+					echo '<a href = "../user/security/login" style = "float: right; margin-left:15px;" class="btn btn-primary btn-small" ><i class="icon-white icon-user" ></i > Prijava</a>';
+					} ?>
 					<div class="language-main-class" style="width:65% !important; float:right;">
 						<select name="webmenu" id="webmenu" class="form-control">
 							<?php
@@ -119,7 +130,9 @@ $menuItems = [
 			</ul>
 	</li>
 	";
-
+	if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin) {
+		$menuItems[] = ['label' => Yii::t('app','Admins permissions'), 'url' => ['/user/admin/index']];
+	}
 
 
  echo Nav::widget([
@@ -142,30 +155,53 @@ NavBar::end();
         <?= $content ?>
 
         <div class="clear"></div>
-        <div id="footer"></div>
+        <div id="footer">
+
+
+
+
+
+        </div>
 
     </div>
 	</div>
 </div>
     <?php $this->endBody() ?>
     <script type="text/javascript">
-	    $(".options-main select").msDropDown();
 
+	    function doAjax(data, url){
+		    $.ajax({
+			    method: "POST",
+			    url: url,
+			    data: {lang: data},
+			    success:function(data){
+				    location.reload();
+			    }
+		    });
+	    }
 	    $(document).ready(function(){
+
+		    $(".options-main select").msDropDown();
+
+		    $('.language-info img').click(function() {
+			    $('.dropdown_selection_languages').fadeToggle(500);
+		    });
+
+		    $('.dropdown_selection_languages ul li').click(function(){
+			    var lang_small = $(this).attr('id');
+			    var url = "<?= Yii::$app->request->BaseUrl; ?>/site/language";
+			    doAjax(lang_small, url);
+		    });
+
+
 		    $('#webmenu').on('change', function(){
 			    var lang = $("#webmenu option:selected").val();
 			    var url = "<?= Yii::$app->request->BaseUrl; ?>/site/language";
-			    $.ajax({
-				    method: "POST",
-				    url: url,
-				    data: {lang: lang},
-				    success:function(data){
-					    location.reload();
-				    }
-			    });
+			    doAjax(lang, url);
 
 		    });
 	    });
+
     </script>
 </body>
 </html>

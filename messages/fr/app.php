@@ -1,6 +1,7 @@
 <?php
 
 return array(
+		'Admins permissions' => 'Autorisations des administrateurs',
         'Home' => 'Domicile',
         'Registration' => 'Inscription',
         'Register' => "S'inscrire",

@@ -9,6 +9,7 @@
     "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "*",
-        "cakebake/yii2-actionlog": "*"
+        "cakebake/yii2-actionlog": "*",
+        "dektrium/yii2-rbac": "1.0.0-alpha@dev"
     }
 }

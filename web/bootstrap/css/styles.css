@@ -668,6 +668,18 @@ hr {
     height: 38px;
     margin-top: 10px;
 }
+
+@media(max-width:767px){
+    #w0-collapse > ul
+    {
+        height: 241px;
+        width: 100%;
+    }
+    #w0-collapse > ul > li{
+        margin-left: 30px;
+    }
+
+}
 .navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
     color: #555;
     text-decoration: none;

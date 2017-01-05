@@ -7,6 +7,9 @@ $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+	'modules' => [
+        'rbac' => 'dektrium\rbac\RbacConsoleModule',
+	],
     'controllerNamespace' => 'app\commands',
     'components' => [
         'cache' => [

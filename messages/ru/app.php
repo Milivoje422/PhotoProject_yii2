@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'Admins permissions' => 'Pазрешения aдминистраторы',
     'Home' => 'Главная',
 	'Registration' => 'Регистрация',
 	'Register' => 'Зарегистрироваться',
