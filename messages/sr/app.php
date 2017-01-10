@@ -1,6 +1,15 @@
 <?php
 
 return array(
+	'Agency' => 'Agencija',
+	'Friends site' => 'Prijatelji sajta',
+	'Conditions of use' => 'Uslovi korištenja',
+	'Photography' => 'Fotografisanje',
+	'Cooperation' => 'Saradnja',
+	'Service' => 'Usluge',
+	'Login' => 'Prijava',
+	'Confirm password' => 'Potvrda lozinke',
+	'Accept Terms of Use' => 'Prihvatite uslove korišćenja',
 	'Admins permissions' => 'Administratori dozvole',
 	'Manage users' => 'Upravljanje korisnicima',
 	'Registration' => 'Registracija',

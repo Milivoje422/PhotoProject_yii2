@@ -1,6 +1,7 @@
 <?php
 
 return array(
+		'Accept Terms of Use' => 'Accepter les conditions d\'utilisation',
 		'Admins permissions' => 'Autorisations des administrateurs',
         'Home' => 'Domicile',
         'Registration' => 'Inscription',

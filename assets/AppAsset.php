@@ -21,11 +21,11 @@ class AppAsset extends AssetBundle
         'css/site.css',
 	    'css/screen.css',
 //	    'css/print.css',
-//	    'css/ie.css',
-//	    'css/main.css',
-//	    'css/form.css',
+	    'css/ie.css',
+	    'css/main.css',
+	    'css/form.css',
 	    'bootstrap/css/styles.css',
-	    'css/bs_css/bootstrap.min.css',
+	    'css/bs_css/bootstrap.css',
 	    'css/dd.css'
     ];
 
@@ -33,7 +33,7 @@ class AppAsset extends AssetBundle
 		'js/googleAnalistic.js',
 		'js/customJs.js',
 		'js/jquery.dd.js',
-		'js/bs_js/bootstrap.js'
+//		'js/bs_js/bootstrap.js'
 
 	];
 

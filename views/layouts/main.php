@@ -9,7 +9,8 @@ use yii\bootstrap\NavBar;
 use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use app\models\Category;
+use app\models\Profile;
 
 AppAsset::register($this);
 ?>
@@ -64,8 +65,29 @@ AppAsset::register($this);
 				</div>
 				<div class="options-main" style="width:35%; float:left; margin-top:15px;">
 					<?php if (Yii::$app->user->isGuest) {
-					echo '<a href = "../user/security/login" style = "float: right; margin-left:15px;" class="btn btn-primary btn-small" ><i class="icon-white icon-user" ></i > Prijava</a>';
-					} ?>
+						echo '<a href = "../user/security/login" style = "float: right; margin-left:15px;" class="btn btn-primary btn-small" ><i class="icon-white icon-user" ></i>'.Yii::t("app","Login").'</a>';
+					}else{
+						echo '
+						<div class="btn-group" style = "float: right; margin-left:15px;">
+							<button class="btn btn-primary btn-ms dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								'. Yii::$app->user->identity->username .' <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li>test</li>
+								<li>test</li>
+								<li>test</li>
+								<li>'.
+
+										Html::beginForm(['/user/logout'], 'post'),
+							            Html::submitButton('Logout',[]),
+										Html::endForm()
+									.'
+								</li>
+							</ul>
+						</div>';
+					}	?>
+
+
 					<div class="language-main-class" style="width:65% !important; float:right;">
 						<select name="webmenu" id="webmenu" class="form-control">
 							<?php
@@ -94,6 +116,10 @@ AppAsset::register($this);
 			<div class="navbar nav-bar-menu" style="padding:0px; margin-bottom:0px !important;">
 			<?php
 
+		$cat = Category::find()->all();
+		$photo = Profile::find()->where('account_type = 2')->all();
+
+
 NavBar::begin([
 	'options' => [
 		'class' => 'nav',
@@ -104,32 +130,57 @@ NavBar::begin([
 
 $menuItems = [
 	['label' => Yii::t('app','Home'), 'url' => ['/site/index']],
-	['label' => 'Home', 'url' => ['controller url here']],
-	['label' => 'Home', 'url' => ['controller url here']]
+	['label' => Yii::t('app','Gallery'), 'url' => ['/site/gallery']],
+	['label' => Yii::t('app','News'), 'url' => ['/site/news']],
+	['label' => Yii::t('app','Reports'), 'url' => ['/site/reports']]
 ];
-	if (Yii::$app->user->isGuest) {
- 	 $menuItems[] = ['label' => Yii::t('app','Register'), 'url' => ['/user/register']];
-	 $menuItems[] = ['label' => Yii::t('app','Login'), 'url' => ['/user/login']];
-	} else {
-		$menuItems[] = '<li>'
-	    	. Html::beginForm(['/user/logout'], 'post')
-			. Html::submitButton(
-				'Logout (' . Yii::$app->user->identity->username . ')',
-					['class' => 'btn btn-link logout']
-				)
-			. Html::endForm()
-			. '</li>';
-			};
 	$menuItems[] = "
 	<li class='dropdown'>
-		<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Kategorije <span class=\"caret\"></span></a>
+		<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">".Yii::t('app','Categories')."</a>
+			<ul id=\"yw3\" class=\"dropdown-menu\">";
+
+			foreach ($cat as $key => $cat_){
+			$menuItems[] =  "<li><a tabindex=".$key." href='/site/category/".$cat_['category_id']."'>".$cat_['category_name']."</a></li>";
+				}
+
+
+	$menuItems[] ="</ul>
+	</li>";
+
+	$menuItems[] = "
+	<li class='dropdown'>
+		<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">".Yii::t('app','Photographers')."</a>
+			<ul id=\"yw3\" class=\"dropdown-menu\">";
+
+			foreach ($photo as $key => $photos){
+				$menuItems[] =  "<li><a tabindex=".$key." href='/site/photos/".$photos['user_id']."'>".$photos['name']." ".$photos['lastname']."</a></li>";
+			}
+			$menuItems[] ="</ul>
+	</li>";
+
+	$menuItems[] = "
+	<li class='dropdown'>
+		<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">".Yii::t('app','Service')."</a>
 			<ul id=\"yw3\" class=\"dropdown-menu\">
-				<li><a tabindex=\"-1\" href=\"/index.php/site/category/3\">Sport</a></li>
-				<li><a tabindex=\"-1\" href=\"/index.php/site/category/4\">Zabava / Poznati / Muzika / Koncerti</a></li>
-				<li><a tabindex=\"-1\" href=\"/index.php/site/category/5\">Putovanje / Priroda </a></li>
+				<li class='dropdown'>
+					<a tabindex='1' href='/site/photography'>".Yii::t('app','Photography')."</a>
+					<a tabindex='2' href='/site/cooperation'>".Yii::t('app','Cooperation')."</a>
+				</li>
 			</ul>
-	</li>
-	";
+	</li>";
+
+	$menuItems[] = "
+	<li class='dropdown'>
+		<a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">".Yii::t('app','Agency')."</a>
+			<ul id=\"yw3\" class=\"dropdown-menu\">";
+
+			foreach (Yii::$app->params['agency'] as $key => $item){
+				$menuItems[] =  "<li><a tabindex=".$key." href='".$item['url']."'>".$item['menu']."</a></li>";
+			}
+	$menuItems[] ="
+		</ul>
+	</li>";
+
 	if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin) {
 		$menuItems[] = ['label' => Yii::t('app','Admins permissions'), 'url' => ['/user/admin/index']];
 	}
@@ -149,12 +200,16 @@ NavBar::end();
 	</div>
 </div>
 
-<div class="container" id="page">
-   <div id="mainmenu">
+<!--<div class="container" id="page">-->
+<!--   <div id="mainmenu">-->
 
-        <?= $content ?>
+        <?php  // $content ?>
 
-        <div class="clear"></div>
+<!--        <div class="clear"></div>-->
+
+
+
+
         <div id="footer">
 
 
@@ -163,8 +218,8 @@ NavBar::end();
 
         </div>
 
-    </div>
-	</div>
+<!--    </div>-->
+<!--	</div>-->
 </div>
     <?php $this->endBody() ?>
     <script type="text/javascript">

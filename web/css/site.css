@@ -146,9 +146,11 @@ a.desc:after {
     padding: 5px 11px;
     border: 1px rgba(27, 150, 255, 0.39) solid;
     transition: all 0.5s;
+    cursor: pointer;
 }
 .dropdown_selection_languages ul li:hover
 {
     background: #097ec5;
     color: white;
+    cursor: pointer;
 }

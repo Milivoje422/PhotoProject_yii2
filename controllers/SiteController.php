@@ -7,6 +7,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\ContactForm;
+use app\models\Category ;
+use yii\helpers\ArrayHelper;
+use cakebake\actionlog\model\ActionLog;
 
 class SiteController extends Controller
 {
@@ -59,41 +62,45 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+	    $model = Category::find()->all();
+//		$model = ArrayHelper::map($model,'varname', 'varname');
+        return $this->render('index',[
+	        'model' => $model
+        ]);
+	    ActionLog::add('success', $this->id);
+//    return $this->render('index');
     }
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-//    public function actionLogin()
-//    {
-//        if (!Yii::$app->user->isGuest) {
-//            return $this->goHome();
-//        }
-//
-//        $model = new LoginForm();
-//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//            return $this->goBack();
-//        }
-//        return $this->render('login', [
-//            'model' => $model,
-//        ]);
-//    }
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-//    public function actionLogout()
-//    {
-//        Yii::$app->user->logout();
-//
-//        return $this->goHome();
-//    }
+	public function actionCategory($id)
+	{
+		$query = PostSearch::find()->where(["category_id" => $id]);
+		$countQuery = clone $query;
+		$pages = new Pagination([/*'defaultPageSize' => 6, */ 'totalCount' => $countQuery->count()]);
+		$models = $query->offset($pages->offset)
+			->limit($pages->limit)
+			->all();
 
+		return $this->render('science', [
+			'models' => $models,
+			'pages' => $pages,
+		]);
+	}
+
+	public function actionGallery(){
+		return $this->render('gallery');
+	}
+
+
+
+	public function actionNews(){
+		return $this->render('news');
+	}
+
+
+	public function actionReports(){
+		return $this->render('reports');
+	}
     /**
      * Displays contact page.
      *
@@ -107,6 +114,7 @@ class SiteController extends Controller
 
             return $this->refresh();
         }
+	    ActionLog::add('success', $this->id);
         return $this->render('contact', [
             'model' => $model,
         ]);

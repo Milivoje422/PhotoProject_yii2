@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'Accept Terms of Use' => 'Принять Условия использования',
 	'Admins permissions' => 'Pазрешения aдминистраторы',
     'Home' => 'Главная',
 	'Registration' => 'Регистрация',

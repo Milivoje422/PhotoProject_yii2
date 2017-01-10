@@ -18,6 +18,7 @@ $config = [
 //	        'enableConfirmation' => false,
 //	        'enableFlashMessages' => false
 
+
         ],
 	    'actionlog' => [
 		    'class' => 'cakebake\actionlog\Module',
@@ -34,7 +35,7 @@ $config = [
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     // 'basePath' => 'app\languages',
-//                    'sourceLanguage' => 'sr',
+                    'sourceLanguage' => 'sr',
                     'fileMap' => [
                         'app' => 'app.php',
                         'app/error' => 'error.php',
@@ -62,7 +63,7 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

@@ -38,7 +38,7 @@ use Yii;
  *
  * @property User $user
  */
-class Profiles extends \yii\db\ActiveRecord
+class Profile extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -54,7 +54,7 @@ class Profiles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'lastname', 'phone', 'skype', 'facebook', 'twiter', 'company_name', 'country', 'city', 'address', 'phone_work', 'phone_home', 'bonus_download_date_from', 'bonus_download_date_to'], 'required'],
+            [['user_id'], 'required'],
             [['user_id', 'accept_terms_of_use', 'account_type', 'can_download', 'bonus_download', 'our_photographer', 'download_dimension_limit'], 'integer'],
             [['bio'], 'string'],
             [['bonus_download_date_from', 'bonus_download_date_to'], 'safe'],
